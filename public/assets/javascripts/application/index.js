@@ -22,7 +22,7 @@ $(function() {
 			$("#receiver").val('');
 			loader.addClass("hidden");
 			swal("Success",
-			  `0.5 LisinskiETH has been successfully transferred to <a href="https://explorer.lisinski.online/tx/${data.success.txHash}" target="blank">${receiver}</a>`,
+			  `0.05 LEth has been successfully transferred to <a href="https://explorer.lisinski.online/tx/${data.success.txHash}" target="blank">${receiver}</a>`,
 			  "success"
 			);
 		}).fail(function(err) {
