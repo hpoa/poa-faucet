@@ -1,13 +1,13 @@
 function generateErrorResponse (response, err) {
     const out = {
       error: {
-        code: 500 || err.code,
-        title: 'Error' || err.title,
-        message: 'Internal server error' || err.message
+        code: err.code || 500,
+        title: err.title || 'Error',
+        message: err.message || 'Internal server error'
       }
     };
-    console.log(err)
-    response.send(out)
+    console.log(err);
+    response.send(out);
 }
 
-module.exports = { generateErrorResponse }
+module.exports = { generateErrorResponse };

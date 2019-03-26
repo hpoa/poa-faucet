@@ -3,9 +3,10 @@
   position: absolute;
   bottom: 0;
   height: $footer-height;
-  background-image: url(../images/bg_footer.png);
-  background-size: cover;
-  background-position: center center;
+  background-color: #04091e;
+  // background-image: url(../images/bg_footer.png);
+  // background-size: cover;
+  // background-position: center center;
   color: #fff;
 
   @media screen and (max-width: $tablet-width) {

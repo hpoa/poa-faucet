@@ -1,41 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Lisinski POA Darovatelj Ethera</title>
+    <!------- META ------->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Meta Description TODO-->
+    <meta name="description" content="Lisinski Ethereum Faucet (PIPA) is used to claim LisinskiEther (LETH). Reward is given for publishing tweet about Lisinski Ethereum Testnet.">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="blockchain, ethereum, testnet, poa, foaset, pipa">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/lisinski/lisinski-logo-small.png">
+
+    <!-- Site Title -->
+    <title>Lisinski faucet</title>
+
+    <!------- CSS ------->
     <link rel="stylesheet" type="text/css" href="./assets/stylesheets/application.css">
-    <link rel="apple-touch-icon" href="./favicons/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="./favicons/android-chrome-192x192.png">
-    <link rel="mask-icon" color="#6151cc" href="./favicons/safari-pinned-tab.svg">
-    <link rel="manifest" href="./favicons/manifest.webmanifest">
-    <link href="./favicons/favicon.ico" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700" rel="stylesheet">
+    <!-- Fontawesome icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!------- JS ------->
     <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
   <body>
     <header class="header">
       <div class="container">
-        <a href="#" style="text-decoration: none;">
-          <h1>
-            <a style="color: white" href="https://lisinski.online">Lisinski Network</a>
-          </h1>
-        </a>
+        <div class="row">
+          <div class="col-4 offset-md-4">
+            <h1 class="hidden">Lisinski Etherum Testnet Faucet</h1>
+            <a href="https://lisinski.online">
+              <img src="assets/images/lisinski/lisinski-pipa-logo-wide.png" class="img-fluid" alt="Lisinski Etherum Testnet Logo">
+            </a>
+          </div>
+        </div>
       </div>
     </header>
     <section class="content">
-      <form action="/" method="POST" id="faucetForm">
-        <div class="request-tokens">
-          <h1>Lisinski POA Darovatelj Ethera (Faucet)</h1>
-            <input type="text" id="receiver" name="receiver" />
-            <button type="submit" id="requestTokens" class="request-tokens-button">Zatraži 0.05 LisinskiEther (LEth)</button>
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row justify-content-start">
+          <div class="col-6 offset-md-3">
+            <div class="card text-center">
+              <div class="card-header">
+                LISINSKI POA FAUCET
+              </div>
+              <div class="card-body">
+                <form action="/" method="POST" id="faucetForm">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                          <span class="input-group-text bg-transparent border-right-0"><i class="fas fa-wallet fa-2x"></i></span>
+                      </span>
+                      <input id="receiver" name="receiver" class="form-control form-control-lg py-2 border-left-0 border" type="text" placeholder="Enter wallet address..." >
+                      <span class="input-group-append">
+                        <button class="btn btn-outline-secondary border-left-0 border" type="button" data-toggle="popover" data-trigger="focus" title="Wallet Address" data-content="Enter your wallet address so you can receive your reward.">
+                            <i class="fas fa-info"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                          <span class="input-group-text bg-transparent border-right-0"><i class="fab fa-twitter fa-2x"></i></span>
+                      </span>
+                      <input id="tweetUrl" name="tweetUrl" class="form-control form-control-lg py-2 border-left-0 border" type="text" placeholder="Enter tweet url...">
+                      <span class="input-group-append">
+                        <button class="btn btn-outline-secondary border-left-0 border" type="button" data-toggle="popover" data-trigger="focus" title="Tweet Url" data-content="First, you need to tweet about Lisinski Faucet PIPA and Lisinski Ethereum Testnet, then paste tweet URL here.">
+                            <i class="fas fa-info"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <a class="twitter-share-button"
+                       href="https://twitter.com/intent/tweet?text=I%27m+using+the+Lisinski+Faucet+to+get+some+Lisinski+Ether+for+the+Lisinski+Testnet.+More+information+at&hashtags=LisinskiTestnet, Ethereum"
+                       hashtags="LisinskisTestnet, LisinskiFaucet"
+                       data-size="large">
+                      Tweet about Lisinski</a>
+                  </div>
+                  <div class="form-group">
+                    <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" id="requestTokens" class="request-tokens-button">Request 1 LisinskiEther (LETH)</button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer text-muted">
+                After you claimed your 1 LETH award, you can claim new award after 6 hours.
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="text-xs-center">
-          <div class="g-recaptcha" data-sitekey="6Lcs9ZIUAAAAALr84i6fKXN5_azcsBkgFBCYwRyx"></div>
-        </div>
-      </form>
+      </div>
     </section>
     <div class="loading-container hidden">
       <div class="loading">
         <div class="loading-i"></div>
-        <div class="loading-i"></div
+        <div class="loading-i"></div>
         <div class="loading-i"></div>
         <div class="loading-i"></div>
         <div class="loading-i"></div>
@@ -51,5 +116,37 @@
       </div>
     </footer>
     <script src="./assets/javascripts/application.js?v=1.4" type="text/javascript"></script>
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      // Activate info popovers
+      $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+      });
+      $('.popover-dismiss').popover({
+        trigger: 'focus'
+      })
+    </script>
+    <script>
+      // Activate tweet button
+      window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"));
+    </script>
   </body>
 </html>

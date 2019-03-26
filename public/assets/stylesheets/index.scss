@@ -1,1 +1,19 @@
 @import './index/*';
+
+html {
+  overflow: hidden;
+}
+
+.content {
+  background-image: url('../images/lisinski/composer.jpg');
+  background-size: cover
+}
+
+.overlay {
+  background-color: rgba(148, 146, 129, 0.9);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

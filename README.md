@@ -11,7 +11,7 @@
   cp config.json.example config.json
   ```
 2. Update config.json `./config.json` (see config.json with placeholders below)
-3. Update `./public/index.html`: Find `<div class="g-recaptcha" data-sitekey="type your reCaptcha plugin secret here"></div>` line and type your reCaptcha plugin secret in `data-sitekey` attribute. For more info, [see](https://developers.google.com/recaptcha/docs/verify?hl=ru)
+3. Update `./public/index.html`: Find `<div class="g-recaptcha" data-sitekey="type your reCaptcha plugin secret here"></div>` line and type your reCaptcha plugin site key in `data-sitekey` attribute. For more info, [see](https://developers.google.com/recaptcha/docs/verify?hl=ru)
 4. Install dependencies `npm install` from the project's root
 5. Run faucet with `npm start`. Sokol POA Network faucet will be launched at `http://localhost:5000`
 

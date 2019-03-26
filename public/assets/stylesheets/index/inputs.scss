@@ -22,3 +22,24 @@ input {
   height: 36px;
   margin-bottom: 20px;
 }
+
+/* hide the blue outline */
+.form-control:focus {
+  outline: 0 !important;
+  border-color: initial;
+  box-shadow: none;
+}
+
+.card-footer {
+  font-style: italic;
+  text-align: justify;
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+.card-body {
+  padding: 3.25rem !important;
+}
