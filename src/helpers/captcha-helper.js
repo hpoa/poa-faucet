@@ -1,7 +1,6 @@
 const querystring = require('querystring')
 const https = require('https')
 const { debug } = require('../helpers/debug')
-const { generateErrorResponse } = require('../helpers/generate-response')
 
 function validateCaptcha (app, captchaResponse) {
 	const config = app.config

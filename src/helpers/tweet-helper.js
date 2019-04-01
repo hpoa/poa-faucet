@@ -1,13 +1,14 @@
 const scrape = require('page-scraper');
 const level = require('level');
 const stringSimilarity = require('string-similarity');
+const app = require('../../index');
 
 // similarity constants
 const referenceString = "I'm using the Lisinski Faucet to get some Lisinski Ether for the Lisinski Testnet. More information at https://lisinski.online/en!";
-const similarityThreshold = 0.8;
+const similarityThreshold = app.config.Tweeter.similarityTreshold || 0.8;
 
 // defined as number of hours
-const timeoutThresholdInHours = 6;
+const timeoutThresholdInHours = app.config.Tweeter.cooldown || 6;
 
 const db = level('tweet-db');
 

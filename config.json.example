@@ -4,6 +4,10 @@
   "Captcha": {
     "secret": ""
   },
+  "Tweeter": {
+    "similarityTreshold": 0.8,
+    "cooldown": 8
+  }
   "Ethereum": {
     "milliEtherToTransfer": 500,
     "gasLimit": "21000",
