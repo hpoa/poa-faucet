@@ -2,7 +2,7 @@ button,
 input,
 textarea {
   outline: none;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 input {
@@ -23,12 +23,25 @@ input {
   margin-bottom: 20px;
 }
 
+.request-tokens-button {
+  @extend %btn;
+
+  background-color: #08b3f2;
+
+  &:hover {
+    background-color: #079dd4;
+  }
+
+}
+
 /* hide the blue outline */
 .form-control:focus {
   outline: 0 !important;
   border-color: initial;
   box-shadow: none;
 }
+
+// Input card
 
 .card-footer {
   font-style: italic;
@@ -41,5 +54,5 @@ input {
 }
 
 .card-body {
-  padding: 3.25rem !important;
+  padding: 1.25rem !important;
 }
