@@ -2,6 +2,7 @@ const EthereumTx = require('ethereumjs-tx')
 const { generateErrorResponse } = require('../helpers/generate-response')
 const  { validateCaptcha } = require('../helpers/captcha-helper')
 const { debug } = require('../helpers/debug')
+const { checkIfValidTweet } = require('../helpers/tweet-helper')
 
 module.exports = function (app) {
 	const config = app.config
@@ -34,7 +35,9 @@ module.exports = function (app) {
 		}
 		const receiver = request.body.receiver
 		if (await validateCaptchaResponse(captchaResponse, receiver, response)) {
-			await sendPOAToRecipient(web3, receiver, response, isDebug)
+			if (await validateTweet(request.body.tweetUrl, response)) {
+				await sendPOAToRecipient(web3, receiver, response, isDebug)
+			}
 		}
 	});
 
@@ -66,13 +69,21 @@ module.exports = function (app) {
 		return true
 	}
 
+	async function validateTweet(tweetUrl, response) {
+		const resp = await checkIfValidTweet(tweetUrl);
+		if (!resp.valid) {
+			generateErrorResponse(response, {message: resp.message})
+		}
+		return resp.valid;
+	}
+
 	async function sendPOAToRecipient(web3, receiver, response, isDebug) {
 		let senderPrivateKey = config.Ethereum[config.environment].privateKey
 		const privateKeyHex = Buffer.from(senderPrivateKey, 'hex')
 		if (!web3.utils.isAddress(receiver)) {
 			return generateErrorResponse(response, {message: messages.INVALID_ADDRESS})
 		}
-		
+
 		const gasPrice = web3.utils.toWei('1', 'gwei')
 		const gasPriceHex = web3.utils.toHex(gasPrice)
 		const gasLimitHex = web3.utils.toHex(config.Ethereum.gasLimit)
@@ -84,7 +95,7 @@ module.exports = function (app) {
 		  nonce: nonceHex,
 		  gasPrice: gasPriceHex,
 		  gasLimit: gasLimitHex,
-		  to: receiver, 
+		  to: receiver,
 		  value: ethToSend,
 		  data: '0x00'
 		}
@@ -117,12 +128,12 @@ module.exports = function (app) {
 
 	function sendRawTransactionResponse(txHash, response) {
 		const successResponse = {
-			code: 200, 
-			title: 'Success', 
+			code: 200,
+			title: 'Success',
 			message: messages.TX_HAS_BEEN_MINED,
 			txHash: txHash
 		}
-	  	
+
 	  	response.send({
 	  		success: successResponse
 	  	})
