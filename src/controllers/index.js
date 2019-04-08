@@ -35,8 +35,8 @@ module.exports = function (app) {
 		}
 		const receiver = request.body.receiver
 		if (await validateCaptchaResponse(captchaResponse, receiver, response)) {
-			if (await validateTweet(request.body.tweetUrl, response)) {
-				await sendPOAToRecipient(web3, receiver, response, isDebug)
+			if (!request.body.tweetUrl || await validateTweet(request.body.tweetUrl, response)) {
+				await sendPOAToRecipient(web3, receiver, response, isDebug, !request.body.tweetUrl)
 			}
 		}
 	});
@@ -77,20 +77,22 @@ module.exports = function (app) {
 		return resp.valid;
 	}
 
-	async function sendPOAToRecipient(web3, receiver, response, isDebug) {
-		let senderPrivateKey = config.Ethereum[config.environment].privateKey
-		const privateKeyHex = Buffer.from(senderPrivateKey, 'hex')
+	async function sendPOAToRecipient(web3, receiver, response, isDebug, isWithoutTweet) {
+		let senderPrivateKey = config.Ethereum[config.environment].privateKey;
+		const privateKeyHex = Buffer.from(senderPrivateKey, 'hex');
 		if (!web3.utils.isAddress(receiver)) {
 			return generateErrorResponse(response, {message: messages.INVALID_ADDRESS})
 		}
 
-		const gasPrice = web3.utils.toWei('1', 'gwei')
-		const gasPriceHex = web3.utils.toHex(gasPrice)
-		const gasLimitHex = web3.utils.toHex(config.Ethereum.gasLimit)
-		const nonce = await web3.eth.getTransactionCount(config.Ethereum[config.environment].account)
-		const nonceHex = web3.utils.toHex(nonce)
-		const BN = web3.utils.BN
-		const ethToSend = web3.utils.toWei(new BN(config.Ethereum.milliEtherToTransfer), "milliether")
+		const gasPrice = web3.utils.toWei('1', 'gwei');
+		const gasPriceHex = web3.utils.toHex(gasPrice);
+		const gasLimitHex = web3.utils.toHex(config.Ethereum.gasLimit);
+		const nonce = await web3.eth.getTransactionCount(config.Ethereum[config.environment].account);
+		const nonceHex = web3.utils.toHex(nonce);
+		const BN = web3.utils.BN;
+	  	const miliEthToSend = (isWithoutTweet) ?
+		  config.Ethereum.milliEtherToTransferWithoutTweet : config.Ethereum.milliEtherToTransferWithTweet;
+		const ethToSend = web3.utils.toWei(new BN(miliEthToSend), "milliether");
 		const rawTx = {
 		  nonce: nonceHex,
 		  gasPrice: gasPriceHex,
@@ -100,12 +102,12 @@ module.exports = function (app) {
 		  data: '0x00'
 		}
 
-		const tx = new EthereumTx(rawTx)
-		tx.sign(privateKeyHex)
+		const tx = new EthereumTx(rawTx);
+		tx.sign(privateKeyHex);
 
-		const serializedTx = tx.serialize()
+		const serializedTx = tx.serialize();
 
-		let txHash
+		let txHash;
 		web3.eth.sendSignedTransaction("0x" + serializedTx.toString('hex'))
 		.on('transactionHash', (_txHash) => {
 			txHash = _txHash
@@ -132,7 +134,7 @@ module.exports = function (app) {
 			title: 'Success',
 			message: messages.TX_HAS_BEEN_MINED,
 			txHash: txHash
-		}
+		};
 
 	  	response.send({
 	  		success: successResponse

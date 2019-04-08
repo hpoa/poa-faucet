@@ -9,7 +9,8 @@
     "cooldown": 8
   }
   "Ethereum": {
-    "milliEtherToTransfer": 500,
+    "milliEtherToTransferWithTweet": 500,
+    "milliEtherToTransferWithoutTweet": 5,
     "gasLimit": "21000",
     "prod": {
       "rpc": "http://127.0.0.1:8545",
