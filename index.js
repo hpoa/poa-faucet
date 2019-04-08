@@ -1,6 +1,8 @@
 const express = require('express')
 const fs = require('fs')
 const bodyParser = require('body-parser')
+const path = require('path')
+
 let app = express();
 
 require('./src/helpers/blockchain-helper')(app)
@@ -18,6 +20,8 @@ app.config = config
 app.configureWeb3(config)
 .then(web3 => {
 	app.web3 = web3
+  	app.set("view engine", "pug");
+	app.set("views", path.join(__dirname, "/public/views"))
 	app.use(express.static(__dirname + '/public'))
 	app.use(bodyParser.json({
 		limit: '50mb',
@@ -29,8 +33,8 @@ app.configureWeb3(config)
 
 	require('./src/controllers/index')(app)
 
-	app.get('/', function(request, response) {
-	  response.send('Sokol POA Network faucet')
+	app.get('/home', function(request, response) {
+	  response.render('index');
 	});
 
     app.set('port', (process.env.PORT || 5000))

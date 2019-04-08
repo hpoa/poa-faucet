@@ -1,0 +1,146 @@
+html
+    head
+        <!------- META ------->
+        meta(charset='utf-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        // Meta Description & Keywords
+        meta(name='description' content='Lisinski Ethereum Faucet (PIPA) is used to claim LisinskiEther (LETH). Reward is given for publishing tweet about Lisinski Ethereum Testnet.')
+        meta(name='keywords' content='blockchain, ethereum, testnet, poa, foaset, pipa')
+        // Favicon
+        link(rel='shortcut icon' href='assets/images/lisinski/lisinski-logo-small.png')
+        // Site Title
+        title Lisinski faucet
+
+        <!------- CSS ------->
+        link(rel='stylesheet' type='text/css' href='./assets/stylesheets/application.css')
+        link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
+        link(href='https://fonts.googleapis.com/css?family=Poppins:300,400,500,700' rel='stylesheet')
+        // Fontawesome icons
+        link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+
+        <!------- JS ------->
+        script(src='https://www.google.com/recaptcha/api.js')
+
+    body
+        .d-flex.w-100.h-100.mx-auto.flex-column
+            header.masthead.mb-auto.bring-to-front
+                .inner
+                    h1.hidden Lisinski Etherum Testnet Faucet
+                    .allign-middle
+                        a(href='https://lisinski.online')
+                            img.center-logo-img(src='assets/images/lisinski/lisinski-pipa-logo-wide.png' alt='Lisinski Etherum Testnet Logo')
+
+            main.inner.content(role='main' style='background-color: #333333')
+                .container
+                    .row.justify-content-center
+                        .flex-container.bring-to-front
+                            .card-container
+                                .card-flip
+                                    .flip
+                                        .front
+                                            .card.text-center
+                                                .card-header
+                                                    | LISINSKI POA FAUCET
+                                                .card-body
+                                                    form#faucetForm(action='/' method='POST')
+                                                        .form-group
+                                                            .input-group
+                                                                span.input-group-prepend
+                                                                    span.input-group-text.bg-transparent.border-right-0
+                                                                        i.fas.fa-wallet.fa-2x
+                                                                input#receiver.form-control.form-control-lg.py-2.border-left-0.border(name='receiver' type='text' placeholder='Enter wallet address...')
+                                                                span.input-group-append
+                                                                    button.btn.btn-outline-secondary.border-left-0.border(type='button' data-toggle='popover' data-trigger='focus' title='Wallet Address' data-content='Enter your wallet address so you can receive your reward.')
+                                                                        i.fas.fa-info
+                                                        .form-group
+                                                            .input-group
+                                                                span.input-group-prepend
+                                                                    span.input-group-text.bg-transparent.border-right-0
+                                                                        i.fab.fa-twitter.fa-2x
+                                                                input#tweetUrl.form-control.form-control-lg.py-2.border-left-0.border(name='tweetUrl' type='text' placeholder='Enter tweet url...')
+                                                                span.input-group-append
+                                                                    button.btn.btn-outline-secondary.border-left-0.border(type='button' data-toggle='popover' data-trigger='focus' title='Tweet Url' data-content='First, you need to tweet about Lisinski Faucet PIPA and Lisinski Ethereum Testnet, then paste tweet URL here.')
+                                                                        i.fas.fa-info
+                                                        .form-group
+                                                            a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I%27m+using+the+Lisinski+Faucet+to+get+some+Lisinski+Ether+for+the+Lisinski+Testnet.+More+information+at&hashtags=LisinskiTestnet, ethereum' hashtags='LisinskisTestnet, LisinskiFaucet' data-size='large')
+                                                                | Tweet about Lisinski
+                                                        .form-group
+                                                            .g-recaptcha(data-sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' style='transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;')
+                                                        .form-group
+                                                            button#requestTokens.request-tokens-button(type='submit') Request 1 LisinskiEther (LETH)
+                                                .card-footer.text-muted
+                                                    | After you claimed your 1 LETH award, you can claim new award after 6 hours.
+                                        .back
+                                            .card.text-center
+                                                .card-header
+                                                    | LISINSKI POA FAUCET BACK
+                                                .card-body
+                                                    form#faucetFormMin(action='/' method='POST')
+                                                        .form-group
+                                                            .input-group
+                                                                span.input-group-prepend
+                                                                    span.input-group-text.bg-transparent.border-right-0
+                                                                        i.fas.fa-wallet.fa-2x
+                                                                input#receiverMin.form-control.form-control-lg.py-2.border-left-0.border(name='receiver' type='text' placeholder='Enter wallet address...')
+                                                                span.input-group-append
+                                                                    button.btn.btn-outline-secondary.border-left-0.border(type='button' data-toggle='popover' data-trigger='focus' title='Wallet Address' data-content='Enter your wallet address so you can receive your reward.')
+                                                                        i.fas.fa-info
+                                                        .form-group
+                                                            .g-recaptcha(data-sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' style='transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;')
+                                                        .form-group
+                                                            button.request-tokens-button(type='submit') Request 0.05 LisinskiEther (LETH)
+                                                .card-footer.text-muted
+                                                    | After you claimed your 0.05 LETH award, you can claim new award after 6 hours.
+            .loading-container.hidden
+                .loading
+                    .loading-i
+                    .loading-i
+                    .loading-i
+                    .loading-i
+                    .loading-i
+                    .loading-i
+            footer.mastfoot.mt-auto.bring-to-front
+                .inner
+                    .row
+                        .col-md-4.mx-auto
+                        .col-md-4.mx-auto
+                            .text-center.center
+                                small 2019 LisinskiPOA. All rights reserved.
+                        .col-md-4.mx-auto
+                            .center
+                                .flex-center
+                                    small.text-center Hosted and maintend by:
+                                    .mgl-5
+                                        a(href='https://www.nodefactory.io/')
+                                            img.ft-img(src='assets/images/nodefactory/nf-logo-transparent.png' alt='Node Factory Logo')
+                                    .mgl-10
+                                        a.social-button(href='https://github.com/hpoa/poa-faucet')
+                                            i.fab.fa-github.fa-2x
+        script(src='./assets/javascripts/application.js?v=1.4' type='text/javascript')
+        // jQuery, Popper.js, Bootstrap JS
+        script(src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous')
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+        script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
+        script.
+          // Activate info popovers
+          $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+          });
+          $('.popover-dismiss').popover({
+            trigger: 'focus'
+          })
+        script.
+          // Activate tweet button
+          window.twttr = (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            t._e = [];
+            t.ready = function (f) {
+              t._e.push(f);
+            };
+            return t;
+          }(document, "script", "twitter-wjs"));
