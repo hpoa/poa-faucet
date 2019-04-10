@@ -33,7 +33,7 @@ app.configureWeb3(config)
 
 	require('./src/controllers/index')(app);
 
-	app.get('/home', function(request, response) {
+	app.get('/', function(request, response) {
 	  response.render('index', {
         minAmount: app.config.Ethereum.milliEtherToTransferWithoutTweet / 1000,
         maxAmount: app.config.Ethereum.milliEtherToTransferWithTweet / 1000,
