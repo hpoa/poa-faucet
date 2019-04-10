@@ -4,7 +4,7 @@ const stringSimilarity = require('string-similarity');
 const app = require('../../index');
 
 // similarity constants
-const referenceString = "I'm using the Lisinski Faucet to get some Lisinski Ether for the Lisinski Testnet. More information at https://lisinski.online/en!";
+const referenceString = app.config.Tweeter.predefinedTweet + app.config.Tweeter.predefinedHashTags;
 const similarityThreshold = app.config.Tweeter.similarityTreshold || 0.8;
 
 // defined as number of hours
@@ -86,7 +86,7 @@ async function checkIfTimeoutExpired(tweetUser) {
   // check if timeout expired
   const hoursFromLastTweet = Math.abs(timestamp - Date.now()) / 36e5;
   if (hoursFromLastTweet <= timeoutThresholdInHours) {
-    throw new Error(`Reward already claimed in last ${timeoutThresholdInHours}!`)
+    throw new Error(`Reward already claimed in last ${timeoutThresholdInHours} hours!`)
   }
 }
 

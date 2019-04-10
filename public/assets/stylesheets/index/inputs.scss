@@ -59,10 +59,10 @@ input {
 
 .card-flip {
   perspective: 1000px;
-  &:hover .flip,
-  &.hover .flip {
-    transform: rotateY(180deg);
-  }
+}
+
+.card-flip.flip .flip {
+  transform: rotateY(180deg);
 }
 
 .card-flip,
@@ -97,4 +97,12 @@ input {
 
 .card-container {
   width: 100%;
+}
+
+.gray-button {
+  background-color: #0d191d;
+}
+
+.footer-button {
+  float: right;
 }

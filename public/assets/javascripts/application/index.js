@@ -1,6 +1,4 @@
 $(function() {
-	// TMP
-    document.querySelector(".card-flip").classList.toggle("flip");
 	var loader = $(".loading-container");
 	$( "#faucetForm" ).submit(function( e ) {
 		e.preventDefault();

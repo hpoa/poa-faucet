@@ -30,12 +30,12 @@ html
                         a(href='https://lisinski.online')
                             img.center-logo-img(src='assets/images/lisinski/lisinski-pipa-logo-wide.png' alt='Lisinski Etherum Testnet Logo')
 
-            main.inner.content(role='main' style='background-color: #333333')
+            main.inner.content(role='main')
                 .container
                     .row.justify-content-center
                         .flex-container.bring-to-front
                             .card-container
-                                .card-flip
+                                .card-flip.noflip
                                     .flip
                                         .front
                                             .card.text-center
@@ -62,18 +62,21 @@ html
                                                                     button.btn.btn-outline-secondary.border-left-0.border(type='button' data-toggle='popover' data-trigger='focus' title='Tweet Url' data-content='First, you need to tweet about Lisinski Faucet PIPA and Lisinski Ethereum Testnet, then paste tweet URL here.')
                                                                         i.fas.fa-info
                                                         .form-group
-                                                            a.twitter-share-button(href='https://twitter.com/intent/tweet?text=I%27m+using+the+Lisinski+Faucet+to+get+some+Lisinski+Ether+for+the+Lisinski+Testnet.+More+information+at&hashtags=LisinskiTestnet, ethereum' hashtags='LisinskisTestnet, LisinskiFaucet' data-size='large')
+                                                            a.twitter-share-button(href=predefinedTweetUrl data-size='large')
                                                                 | Tweet about Lisinski
                                                         .form-group
-                                                            .g-recaptcha(data-sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' style='transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;')
+                                                            .g-recaptcha(data-sitekey=sitekey style='transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;')
                                                         .form-group
-                                                            button#requestTokens.request-tokens-button(type='submit') Request 1 LisinskiEther (LETH)
+                                                            button#requestTokens.request-tokens-button(type='submit') Request #{maxAmount} LisinskiEther (LETH)
                                                 .card-footer.text-muted
-                                                    | After you claimed your 1 LETH award, you can claim new award after 6 hours.
+                                                    .footer-note
+                                                        | After you claimed your #{maxAmount} LETH award, you can claim new award after #{cooldown} hours.
+                                                    .footer-button
+                                                        button.request-tokens-button.gray-button.toggle I want #{minAmount} LETH
                                         .back
                                             .card.text-center
                                                 .card-header
-                                                    | LISINSKI POA FAUCET BACK
+                                                    | LISINSKI POA FAUCET
                                                 .card-body
                                                     form#faucetFormMin(action='/' method='POST')
                                                         .form-group
@@ -86,11 +89,12 @@ html
                                                                     button.btn.btn-outline-secondary.border-left-0.border(type='button' data-toggle='popover' data-trigger='focus' title='Wallet Address' data-content='Enter your wallet address so you can receive your reward.')
                                                                         i.fas.fa-info
                                                         .form-group
-                                                            .g-recaptcha(data-sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI' style='transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;')
+                                                            .g-recaptcha(data-sitekey=sitekey style='transform:scale(1);-webkit-transform:scale(1);transform-origin:0 0;-webkit-transform-origin:0 0;')
                                                         .form-group
-                                                            button.request-tokens-button(type='submit') Request 0.05 LisinskiEther (LETH)
+                                                            button.request-tokens-button(type='submit') Request #{minAmount} LisinskiEther (LETH)
                                                 .card-footer.text-muted
-                                                    | After you claimed your 0.05 LETH award, you can claim new award after 6 hours.
+                                                    .footer-button
+                                                        button.request-tokens-button.gray-button.toggle I want #{maxAmount} LETH
             .loading-container.hidden
                 .loading
                     .loading-i
@@ -128,7 +132,12 @@ html
           });
           $('.popover-dismiss').popover({
             trigger: 'focus'
-          })
+          });
+          // Flip input card
+          $('.toggle').on('click', function () {
+            $('.card-flip').toggleClass("flip");
+          });
+
         script.
           // Activate tweet button
           window.twttr = (function (d, s, id) {
