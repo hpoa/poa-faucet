@@ -2,14 +2,18 @@
   "environment": "prod",
   "debug": false,
   "Captcha": {
-    "secret": ""
+    "secret": "",
+    "sitekey": ""
   },
   "Tweeter": {
-    "similarityTreshold": 0.8,
-    "cooldown": 8
+    "similarityTreshold": 0.75,
+    "cooldown": 8,
+    "predefinedTweet": "I'm using the Lisinski Faucet to get some Lisinski Ether for the Lisinski Testnet. More information at ",
+    "predefinedHashTags": "LisinskiTestnet, ethereum"
   }
   "Ethereum": {
-    "milliEtherToTransfer": 500,
+    "milliEtherToTransferWithTweet": 1000,
+    "milliEtherToTransferWithoutTweet": 50,
     "gasLimit": "21000",
     "prod": {
       "rpc": "http://127.0.0.1:8545",
