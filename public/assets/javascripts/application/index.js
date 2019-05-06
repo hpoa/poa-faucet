@@ -1,5 +1,7 @@
 $(function() {
 	var loader = $(".loading-container");
+	updateBalance();
+	// on form submit
 	$( "#faucetForm" ).submit(function( e ) {
 		e.preventDefault();
     	$this = $(this);
@@ -25,6 +27,7 @@ $(function() {
 			  `0.05 LEth has been successfully transferred to <a href="https://explorer.lisinski.online/tx/${data.success.txHash}" target="blank">${receiver}</a>`,
 			  "success"
 			);
+			updateBalance();
 		}).fail(function(err) {
 			grecaptcha.reset();
 			console.log(err);
@@ -32,3 +35,19 @@ $(function() {
 		});
 	});
 });
+
+function updateBalance() {
+  $.ajax({
+    url: "/health",
+    type: "GET"
+  }).done(function (data) {
+    if (data.balanceInEth) {
+      $(".footer-balance").text(data.balanceInEth + " LETH remaining")
+    } else {
+      $(".footer-balance").text("Balance not available");
+    }
+  }).fail(function(err) {
+    $(".footer-balance").text("Balance not available");
+    console.log(err);
+  });
+}
