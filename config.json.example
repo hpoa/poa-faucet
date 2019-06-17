@@ -10,7 +10,7 @@
     "cooldown": 8,
     "predefinedTweet": "I'm using the Lisinski Faucet to get some Lisinski Ether for the Lisinski Testnet. More information at ",
     "predefinedHashTags": "LisinskiTestnet, ethereum"
-  }
+  },
   "Ethereum": {
     "milliEtherToTransferWithTweet": 1000,
     "milliEtherToTransferWithoutTweet": 50,
@@ -20,5 +20,10 @@
       "account": "",
       "privateKey": ""
     }
-  }
+  },
+  "Slack": {
+    "webhook": "",
+    "balanceThresholdInWei": "10000000000000000000",
+    "notifMessage": "LETH remind on PIPA faucet."
+   }
 }

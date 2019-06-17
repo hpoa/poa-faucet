@@ -3,6 +3,7 @@ const { generateErrorResponse } = require('../helpers/generate-response');
 const  { validateCaptcha } = require('../helpers/captcha-helper');
 const { debug } = require('../helpers/debug');
 const { checkIfValidTweet } = require('../helpers/tweet-helper');
+const { sendAmountNotifToSlackIfNotSent } = require('../helpers/slack-helper');
 
 module.exports = function (app) {
 	const config = app.config;
@@ -20,7 +21,7 @@ module.exports = function (app) {
 		debug(isDebug, "REQUEST:");
 		debug(isDebug, request.body);
 
-	  const recaptureResponse = request.body["g-recaptcha-response"];
+	  	const recaptureResponse = request.body["g-recaptcha-response"];
 		if (!recaptureResponse) {
 			const error = {
 				message: messages.INVALID_CAPTCHA,
@@ -37,34 +38,43 @@ module.exports = function (app) {
 
 		const receiver = request.body.receiver;
 		if (await validateCaptchaResponse(captchaResponse, receiver, response)) {
-          if (!web3.utils.isAddress(receiver)) {
-            return generateErrorResponse(response, {message: messages.INVALID_ADDRESS});
-          }
-          const noTweet = !request.body.tweetUrl;
-          if (noTweet || await validateTweet(request.body.tweetUrl, response)) {
-          	await sendPOAToRecipient(web3, receiver, response, isDebug, noTweet);
-          }
+		  if (!web3.utils.isAddress(receiver)) {
+			return generateErrorResponse(response, {message: messages.INVALID_ADDRESS});
+		  }
+		  const noTweet = !request.body.tweetUrl;
+		  if (noTweet || await validateTweet(request.body.tweetUrl, response)) {
+		  	await checkBalanceStatus(response);
+			await sendPOAToRecipient(web3, receiver, response, isDebug, noTweet);
+		  }
 		}
 	});
 
 	app.get('/health', async function(request, response) {
+		const resp = await checkBalanceStatus(response);
+		response.send(resp);
+	});
+
+	async function checkBalanceStatus(response) {
 		let balanceInWei;
 		let balanceInEth;
 		const address = config.Ethereum[config.environment].account;
+		// get balance
 		try {
 			balanceInWei = await web3.eth.getBalance(address);
 			balanceInEth = await web3.utils.fromWei(balanceInWei, "ether");
 		} catch (error) {
 			return generateErrorResponse(response, error);
 		}
-
-		const resp = {
+		// send slack notification if balance under threshold
+		if (web3.utils.toBN(balanceInWei).lte(web3.utils.toBN(config.Slack.balanceThresholdInWei))) {
+			sendAmountNotifToSlackIfNotSent(balanceInEth);
+		}
+		return {
 			address,
 			balanceInWei: balanceInWei,
 			balanceInEth: Math.round(balanceInEth)
 		};
-		response.send(resp);
-	});
+	}
 
 	async function validateCaptchaResponse(captchaResponse, receiver, response) {
 		if (!captchaResponse || !captchaResponse.success) {
